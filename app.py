@@ -36,9 +36,17 @@ class ChatGPTBotAPI:
         self.prompts[prompt_index] = new_prompt
         return "Prompt updated successfully."
 
+    def delete_prompt(self, prompt_index):
+        if prompt_index >= len(self.prompts) or prompt_index < 0:
+            return "Invalid prompt index."
+
+        del self.prompts[prompt_index]
+        return "Prompt deleted successfully."
+
+
 # Create Flask app and ChatGPT Bot instance
 app = Flask(__name__)
-chatbot = ChatGPTBotAPI(api_key='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')
+chatbot = ChatGPTBotAPI(api_key='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')
 
 # Initialize the ChatGPT Bot with OpenAI API
 chatbot.initialize_gpt3()
@@ -73,6 +81,17 @@ def update_prompt():
         return jsonify({"message": "Prompt index or new prompt is missing."}), 400
 
     result = chatbot.update_prompt(prompt_index, new_prompt)
+    return jsonify({"message": result}), 200
+
+@app.route('/delete_prompt', methods=['DELETE'])
+def delete_prompt():
+    data = request.get_json()
+    prompt_index = data.get('prompt_index')
+
+    if prompt_index is None:
+        return jsonify({"message": "Prompt index is missing."}), 400
+
+    result = chatbot.delete_prompt(prompt_index)
     return jsonify({"message": result}), 200
 
 if __name__ == '__main__':

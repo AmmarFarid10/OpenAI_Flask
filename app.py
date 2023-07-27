@@ -36,9 +36,10 @@ class ChatGPTBotAPI:
         self.prompts[prompt_index] = new_prompt
         return "Prompt updated successfully."
 
+
 # Create Flask app and ChatGPT Bot instance
 app = Flask(__name__)
-chatbot = ChatGPTBotAPI(api_key='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')
+chatbot = ChatGPTBotAPI(api_key='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')
 
 # Initialize the ChatGPT Bot with OpenAI API
 chatbot.initialize_gpt3()

@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import os
 import openai
 
 class ChatGPTBotAPI:
@@ -46,7 +47,7 @@ class ChatGPTBotAPI:
 
 # Create Flask app and ChatGPT Bot instance
 app = Flask(__name__)
-chatbot = ChatGPTBotAPI(api_key='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')
+chatbot = ChatGPTBotAPI(api_key=os.environ.get('OPENAI_API_KEY', ''))
 
 # Initialize the ChatGPT Bot with OpenAI API
 chatbot.initialize_gpt3()
